@@ -1,6 +1,8 @@
-FROM store/oracle/serverjre:8
-MAINTAINER newtonsu
+FROM maven:3-jdk-8 as builder
+WORKDIR /usr/src/mymaven
+COPY . /usr/src/mymaven
+RUN mvn assembly:assembly
 
-ADD example-1.0-SNAPSHOT-jar-with-dependencies.jar example.jar
-# 容器启动后执行的命令
-CMD java -jar /example.jar
+FROM maven:3-jdk-8
+COPY --from=builder /usr/src/mymaven/target/ /usr/src/mymaven
+ENTRYPOINT ["java",  "-jar", "/usr/src/mymaven/example-1.0-SNAPSHOT-jar-with-dependencies.jar"]
