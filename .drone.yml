@@ -1,0 +1,23 @@
+steps:
+  - name: build
+    image: maven:3.6.2-jdk-8
+    commands:
+      - mvn assembly:assembly
+    volumes:
+      - name: mavenrep
+        path: /root/.m2
+    when:
+      branch: master
+      event: [ push ]
+  - name: docker
+    image: plugins/docker
+    settings:
+      username: admin
+      password: admin123
+      registry: 192.168.100.113:8083
+      insecure: true
+      repo: http://192.168.100.113:8083/v2/example
+      auto_tag: true
+    when:
+      branch: master
+      event: [ push ]
