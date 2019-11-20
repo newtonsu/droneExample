@@ -1,4 +1,4 @@
-FROM 172.31.30.5:8082/oracle-jre
+FROM livingobjects/jre8
 #WORKDIR /usr/
 #COPY . /usr/
 ADD ./build/libs/example.jar example.jar
