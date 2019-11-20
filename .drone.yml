@@ -14,8 +14,6 @@ steps:
       event: [ push ]
   - name: docker
     image: plugins/docker
-    commands:
-      - sudo cat /etc/docker/daemon.json
     settings:
       username: docker
       password: q1OPcR373rEyicXm
