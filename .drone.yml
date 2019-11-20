@@ -1,14 +1,14 @@
 kind: pipeline
 type: docker
-name: unit
+name: example
 steps:
   - name: build
-    image: maven:3.6.2-jdk-8
+    image: gradle:jre8
     commands:
-      - mvn assembly:assembly
+      - gradle clean build
     volumes:
-      - name: mavenrep
-        path: /root/.m2
+      - name: gradlerep
+        path: /root/.gradle
     when:
       branch: master
       event: [ push ]
@@ -20,8 +20,8 @@ steps:
       registry: 172.31.30.5:8082
       insecure: true
       repo: 172.31.30.5:8082/example
-      auto_tag: true
-#      mirror: 172.31.30.5:8082
+      auto_tag: false
+      mirror: 172.31.30.5:8083
     when:
       branch: master
       event: [ push ]

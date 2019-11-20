@@ -1,0 +1,38 @@
+
+group 'example'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs=['src/main/java']
+        }
+    }
+}
+
+dependencies {
+    compile 'org.eclipse.jetty:jetty-server:9.4.9.v20180320'
+    compile 'org.eclipse.jetty:jetty-servlet:9.4.9.v20180320'
+    compile 'org.apache.logging.log4j:log4j-api:2.5'
+    compile 'org.apache.logging.log4j:log4j-core:2.5'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.5'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'com.alibaba:fastjson:1.2.47'
+}
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": "com.test.example.server.Service",
+                "Class-Path": configurations.compile.collect { "lib/${it.name}" }.join(' '))
+    }
+}
