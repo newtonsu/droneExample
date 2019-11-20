@@ -19,10 +19,10 @@ steps:
     settings:
       username: docker
       password: q1OPcR373rEyicXm
-      registry: 172.31.30.5:8082,172.31.30.5:8083
+      registry: 172.31.30.5:8082
       insecure: true
       repo: 172.31.30.5:8082/example
-      auto_tag: false
+      auto_tag: true
 #      mirror: 172.31.30.5:8082
     when:
       branch: master
