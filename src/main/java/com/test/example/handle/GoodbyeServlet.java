@@ -17,10 +17,19 @@ public class GoodbyeServlet extends AbstractHandler {
 
     public void handle(String s, Request request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
-        logger.info("ddddddddddddd");
-        logger.debug("eeeeeeeeee");
-        logger.error("fffffffffffffff");
-        HandlerUtils.markOkJson(httpServletResponse, "{\"msg\":\"ok\", \"goodbye\":" + "}");
+        logger.info("fffffffffffffff-----{}", httpServletRequest.getHeader("re" +
+                "" +
+                "ferer"));
+
+//        httpServletResponse.sendRedirect("http://baidu.com");
+
+        httpServletResponse.setHeader("referer", null);
+        String a2 = System.getenv("WEB_HOST");
+        logger.info("2-----{}", a2);
+
+//        httpServletResponse.sendRedirect(String.format("%s",a2));
+        httpServletResponse.sendRedirect(String.format("http://%s/lp-2.html",a2));
+
 
     }
 }
