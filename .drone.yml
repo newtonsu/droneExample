@@ -2,16 +2,16 @@ kind: pipeline
 type: docker
 name: unit
 steps:
-  - name: build
-    image: maven:3.6.2-jdk-8
-    commands:
-      - mvn assembly:assembly
-    volumes:
-      - name: mavenrep
-        path: /root/.m2
-    when:
-      branch: master
-      event: [ push ]
+#  - name: build
+#    image: maven:3.6.2-jdk-8
+#    commands:
+#      - mvn assembly:assembly
+#    volumes:
+#      - name: mavenrep
+#        path: /root/.m2
+#    when:
+#      branch: master
+#      event: [ push ]
   - name: docker
     image: plugins/docker
     settings:
@@ -19,7 +19,7 @@ steps:
       password: q1OPcR373rEyicXm
       registry: 172.31.30.5:8083
       insecure: true
-      repo: http://172.31.30.5:8083/v2/example
+      repo: http://172.31.30.5:8081/repository/docker-group/test/example
       auto_tag: true
     when:
       branch: master

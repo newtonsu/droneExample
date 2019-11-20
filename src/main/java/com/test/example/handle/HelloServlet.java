@@ -1,7 +1,6 @@
 package com.test.example.handle;
 
 import com.test.example.server.HandlerUtils;
-import org.apache.kafka.common.utils.CollectionUtils;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -9,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 public class HelloServlet extends AbstractHandler {
