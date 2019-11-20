@@ -19,7 +19,7 @@ steps:
       password: q1OPcR373rEyicXm
       registry: 172.31.30.5:8083
       insecure: true
-      repo: http://172.31.30.5:8081/repository/docker-group/test/example
+      repo: 172.31.30.5:8082/example
       auto_tag: true
     when:
       branch: master
