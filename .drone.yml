@@ -10,7 +10,7 @@ steps:
       - name: gradlerep
         path: /root/.gradle
     when:
-      branch: master
+      branch: dev
       event: [ push ]
   - name: docker
     image: plugins/docker
@@ -23,5 +23,5 @@ steps:
       auto_tag: false
 #      mirror: 172.31.30.5:8082
     when:
-      branch: master
+      branch: dev
       event: [ push ]
