@@ -27,7 +27,6 @@ public class HelloServlet extends AbstractHandler {
         if(supList.contains(httpServletRequest.getRequestURI())){
             System.out.println("hello world");
             HandlerUtils.markOkJson(httpServletResponse, "{\"msg\":\"ok\", \"eventId\":" + "}");
-            System.out.println("hello world");
 
         }else{
             System.out.println("not");
