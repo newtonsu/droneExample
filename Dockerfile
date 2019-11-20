@@ -1,4 +1,4 @@
-FROM 172.31.30.5:8083/oracle-jre
+FROM 172.31.30.5:8082/oracle-jre
 #WORKDIR /usr/
 #COPY . /usr/
 ADD ./build/libs/example.jar example.jar
