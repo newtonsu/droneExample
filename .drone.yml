@@ -3,7 +3,7 @@ type: docker
 name: example
 steps:
   - name: build
-    image: gradle:jre8
+    image: gradle:jdk8
     commands:
       - gradle clean build
     volumes:
