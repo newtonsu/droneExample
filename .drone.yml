@@ -15,8 +15,10 @@ steps:
   - name: docker
     image: plugins/docker
     settings:
-      username: docker
-      password: q1OPcR373rEyicXm
+      username:
+        from_secret: docker
+      password:
+        from_secret: q1OPcR373rEyicXm
       registry: 172.31.30.5:8082
       insecure: true
       repo: 172.31.30.5:8082/example
