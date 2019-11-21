@@ -6,6 +6,8 @@ steps:
     image: gradle:jdk8
     commands:
       - gradle clean build
+      - echo git rev-parse --short HEAD
+      - git rev-parse --short HEAD > .tags
     volumes:
       - name: gradlerep
         path: /root/.gradle
@@ -16,9 +18,9 @@ steps:
     image: plugins/docker
     settings:
       username:
-        from_secret: docker
+        from_secret: docker_username
       password:
-        from_secret: q1OPcR373rEyicXm
+        from_secret: docker_password
       registry: 172.31.30.5:8082
       insecure: true
       repo: 172.31.30.5:8082/example
