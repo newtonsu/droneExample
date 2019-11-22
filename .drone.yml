@@ -8,12 +8,14 @@ steps:
       - gradle clean build
       - echo git rev-parse --short HEAD
       - git rev-parse --short HEAD > .tags
+      - cat .tags
     volumes:
       - name: gradlerep
         path: /root/.gradle
     when:
       branch: dev
       event: [ push ]
+
   - name: docker
     image: plugins/docker
     settings:
@@ -25,7 +27,37 @@ steps:
       insecure: true
       repo: 172.31.30.5:8082/example
       auto_tag: false
+      commands:
+        - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
 #      mirror: 172.31.30.5:8082
     when:
       branch: dev
       event: [ push ]
+
+  - name: code-scp
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      port: 22
+      key:
+        from_secret: ssh_key
+      target: /data/example
+      source: docker-compose.yml
+  # 部署项目
+  - name: code-deploy
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_user
+      port: 22
+      key:
+        from_secret: ssh_key
+      script:
+        - cd /data/example
+        - docker-compose down
+        - docker-compose up -d

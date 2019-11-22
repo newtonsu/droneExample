@@ -1,18 +1,10 @@
 version: "3"
 services:
   example:
-    image: 'maven:3-jdk-8'
+    image: '172.31.30.5:8083/example:commitid'
     container_name: example
     ports:
-      - 30100:8890
+      - 18890:8890
     volumes:
-      - .target/:/usr/src/mymaven
       - ./logs:/logs
-    environment:
-      - WEB_HOST=15.188.45.94:30010
-#      - ADDRESS_1=http://15.188.45.94:30010/lp-1.html
-#      - ADDRESS_2=http://15.188.45.94:30010/lp-2.html
-#      - ADDRESS_3=http://15.188.45.94:30010/lp-3.html
-#      - ADDRESS_4=http://15.188.45.94:30010/lp-4.html
-      # - ./wait-for-it.sh:/wait-for-it.sh
-    command: ["java","-jar","/usr/src/mymaven/example-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+    command: ["java","-jar","example.jar"]
