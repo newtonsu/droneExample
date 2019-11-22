@@ -18,6 +18,8 @@ steps:
 
   - name: docker
     image: plugins/docker
+    commands:
+      - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
     settings:
       username:
         from_secret: docker_username
@@ -27,8 +29,6 @@ steps:
       insecure: true
       repo: 172.31.30.5:8082/example
       auto_tag: false
-      commands:
-        - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
 #      mirror: 172.31.30.5:8082
     when:
       branch: dev
