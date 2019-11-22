@@ -9,6 +9,7 @@ steps:
       - echo git rev-parse --short HEAD
       - git rev-parse --short HEAD > .tags
       - cat .tags
+      - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
     volumes:
       - name: gradlerep
         path: /root/.gradle
@@ -18,8 +19,6 @@ steps:
 
   - name: docker
     image: plugins/docker
-    commands:
-      - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
     settings:
       username:
         from_secret: docker_username
