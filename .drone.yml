@@ -2,13 +2,12 @@ kind: pipeline
 type: docker
 name: example
 steps:
+  #编译打包
   - name: build
     image: gradle:jdk8
     commands:
       - gradle clean build
-      - echo git rev-parse --short HEAD
       - git rev-parse --short HEAD > .tags
-      - cat .tags
       - sed -i s/commitid/"`cat .tags`"/g docker-compose.yml
     volumes:
       - name: gradlerep
@@ -17,6 +16,7 @@ steps:
       branch: dev
       event: [ push ]
 
+  #构建上传镜像
   - name: docker
     image: plugins/docker
     settings:
@@ -33,7 +33,7 @@ steps:
       branch: dev
       event: [ push ]
 
-  # 传递
+  # 传递compose文件
   - name: code-scp
     image: appleboy/drone-scp
     settings:
@@ -63,11 +63,22 @@ steps:
         - docker-compose down
         - docker-compose up -d
 
-  - name: notification
-    image: lddsb/drone-dingtalk-message
-    settings:
-      token:
-        from_secret: dingtalktoken
-      type: markdown
-      tips_title: drone notify
-      tpl: ./CI_CD_NOTIFY.tpl
+  #消息通知
+#  - name: notification
+#    image: lddsb/drone-dingtalk-message
+#    settings:
+#      token:
+#        from_secret: dingtalktoken
+#      type: markdown
+#      tips_title: build notify
+#      tpl: ./CI_CD_NOTIFY.tpl
+  notify:
+    image: drillster/drone-email
+    host: smtp.exmail.qq.com
+    username: susen@testbird.com
+    password: wanYHM1314
+    port: 465
+    from: susen@testbird.com
+    recipients: [ yangbo@testbird.com, caoyao@testbird.com ]
+    when:
+      status: [ success, failure ]
