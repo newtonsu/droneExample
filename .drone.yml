@@ -74,11 +74,16 @@ steps:
 #      tpl: ./CI_CD_NOTIFY.tpl
   - name: notify
     image: drillster/drone-email
-    host: smtp.exmail.qq.com
-    username: susen@testbird.com
-    password: wanYHM1314
-    port: 465
-    from: susen@testbird.com
-    recipients: [ yangbo@testbird.com, caoyao@testbird.com ]
+    settings:
+      from: susen@testbird.com
+      host: smtp.exmail.qq.com
+      port: 465
+      username:
+        from_secret: email_username
+      password:
+        from_secret: email_password
+      recipients:
+        - yangbo@testbird.com
+        - caoyao@testbird.com
     when:
       status: [ success, failure ]
