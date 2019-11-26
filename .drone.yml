@@ -72,7 +72,7 @@ steps:
 #      type: markdown
 #      tips_title: build notify
 #      tpl: ./CI_CD_NOTIFY.tpl
-  notify:
+  - name: notify
     image: drillster/drone-email
     host: smtp.exmail.qq.com
     username: susen@testbird.com
