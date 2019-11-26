@@ -33,6 +33,7 @@ steps:
       branch: dev
       event: [ push ]
 
+  # 传递
   - name: code-scp
     image: appleboy/drone-scp
     settings:
@@ -45,6 +46,7 @@ steps:
         from_secret: ssh_key
       target: /data/example
       source: docker-compose.yml
+
   # 部署项目
   - name: code-deploy
     image: appleboy/drone-ssh
@@ -60,3 +62,12 @@ steps:
         - cd /data/example
         - docker-compose down
         - docker-compose up -d
+
+  - name: notification
+    image: lddsb/drone-dingtalk-message
+    settings:
+      token:
+        from_secret: dingtalktoken
+      type: markdown
+      tips_title: drone notify
+      tpl: ./CI_CD_NOTIFY.tpl
